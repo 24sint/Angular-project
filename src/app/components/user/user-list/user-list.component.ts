@@ -8,12 +8,12 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  get userList(){ return this.userService.users };
+  get userList(): User[]{ return this.userService.users };
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUsers();
+    
   }
 
   handleDelete(id: number) {

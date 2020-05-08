@@ -1,6 +1,11 @@
-<h1>User Form</h1>
-
-<form (ngSubmit)="onSubmit()" #userForm="ngForm">
+<div class="container">
+<div *ngIf="isCreate; elseTitleBlock">
+    <h1>Create User Form</h1>
+</div>
+<ng-template #elseTitleBlock>
+    <h1>Update User Form</h1>
+</ng-template>
+<form (ngSubmit)="isCreate ? onCreateSubmit(): onUpdateSubmit()" #userForm="ngForm">
     <label for="name">Name</label>
     <div class="form-group">
         <input 
@@ -22,7 +27,10 @@
             class="form-control" 
             [(ngModel)]="model.email" 
         >
-    </div>
-
-    <button type="submit">Submit</button>
+ 
+        <button type="submit">
+            {{isCreate ? "Submit New User" : "Update User"}}
+        </button>
+</div>
 </form>
+</div>

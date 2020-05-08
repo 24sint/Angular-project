@@ -1,0 +1,16 @@
+<ul *ngFor="let event of eventList">
+    <li>{{event.name}}</li>
+    <li>{{event.location}}</li>
+    <li>{{event.cost}}</li>
+    <li><a [routerLink]="['/events', event.id]">See More</a></li>
+    <button (click)="handleDelete(event.id)">Delete</button>
+
+    <div *ngIf="isUserSelected()">
+        <div *ngIf="checkIfReserved(event.users); else elseBlock">
+            <button (click)="handleCancelReservation(event)">Unreserve</button>
+        </div>
+        <ng-template #elseBlock>
+            <button (click)="handleReservation(event.id)">Reserved</button>
+        </ng-template>
+    </div>
+</ul>

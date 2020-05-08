@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Event } from '../models/event';
 import { Observable } from 'rxjs';
@@ -7,34 +7,32 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EventService {
+  events:Event[];
   resourceUrl: string = "http://localhost:8080/events/";
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
 
-  usersChanged: EventEmitter<Object> = new EventEmitter();
-
   constructor(private http: HttpClient) { }
 
-  getEvent(id: number){
+  getEvent(id: number): Observable<Event>{
     return this.http.get(this.resourceUrl + id, this.httpOptions)
   }
-  getEvents(): Observable<Event[]>{
-    return this.http.get<Event[]>(this.resourceUrl);
+  getEvents(): void{
+    this.http.get<Event[]>(this.resourceUrl).subscribe((events)=>{
+      this.events = events;
+    })
   }
   postEvent(event: Event){
     return this.http.post(this.resourceUrl, event, this.httpOptions);
   }
-  putEvent(){
-
+  putEvent(event: Event){
+    event.users = null;
+    return this.http.put(this.resourceUrl + event.id, event, this.httpOptions);
   }
   deleteEvent(id: number): void{
     this.http.delete(this.resourceUrl + id).subscribe(()=>{
-
-      this.getEvents().subscribe((userResList: Event[])=>{
-        this.usersChanged.emit(userResList);
-      })
-      
+      this.getEvents();
     });
   }
 }

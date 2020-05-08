@@ -1,0 +1,39 @@
+<div class="container">
+    <h1>Event Form</h1>
+    <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+        <label for="name">Name</label>
+        <div class="form-group">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="name"
+                required
+                [(ngModel)]="model.name" 
+                name="name"
+            >
+        </div>
+        <label for="location">Location</label>
+        <div class="form-group">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="location"
+                required
+                [(ngModel)]="model.location" 
+                name="location"
+            >
+        </div>
+        <label for="cost">Cost</label>
+        <div class="form-group">
+            <input 
+                type="number" 
+                class="form-control" 
+                id="cost"
+                required
+                [(ngModel)]="model.cost" 
+                name="cost"
+            >
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>

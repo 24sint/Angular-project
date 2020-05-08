@@ -1,9 +1,17 @@
+<label>Logged in User</label>
+<select (change)="handleSelect($event)">
+  <option [ngValue]="null">Select User</option>
+  <option *ngFor="let user of users" [value]="user.id">
+    {{user.name}}
+  </option>
+</select>
+
 <nav>
   <ul>
-    <li><a routerLink="/users/form">User Form</a></li>
+    <li><a routerLink="/users/form">Create User</a></li>
     <li><a routerLink="/users/list">Show All Users</a></li>
 
-    <li><a routerLink="/events/form">Event Form</a></li>
+    <li><a routerLink="/events/form">Create Event</a></li>
     <li><a routerLink="/events/list">Show All Events</a></li>
   </ul>
 </nav>

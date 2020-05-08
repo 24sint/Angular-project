@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
@@ -10,16 +11,31 @@ import { Location } from '@angular/common';
 })
 export class UserFormComponent implements OnInit {  
   model: User = new User();
-
-  constructor(private userService: UserService, private location: Location ) { }
+  isCreate: boolean;
+  constructor(private userService: UserService, private location: Location, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(params => {
+      let id = params['userId'];
+      this.isCreate = !id;
+      if(!this.isCreate){
+        this.userService.getUser(id).subscribe((user: User)=>{
+          this.model = user;
+        })
+      }
+    })
   }
 
-  onSubmit(){
+  onCreateSubmit(){
     this.userService.postUser(this.model).subscribe(() => {
       location.assign("/users/list");
     });
+  }
+    onUpdateSubmit(){
+      this.userService.putUser(this.model).subscribe(() => {
+        location.assign("/users/list");
+      });
 
   }
 
