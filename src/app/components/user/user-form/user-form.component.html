@@ -1,6 +1,6 @@
 <div class="container">
-<div *ngIf="isCreate; elseTitleBlock">
-    <h1>Create User Form</h1>
+<div *ngIf="isCreate; else elseTitleBlock">
+    <h1 class="formTitle">Create User Form</h1>
 </div>
 <ng-template #elseTitleBlock>
     <h1>Update User Form</h1>
