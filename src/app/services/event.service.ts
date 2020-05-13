@@ -7,8 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EventService {
+  resourceUrl: string = "https://rsvrspringboot.herokuapp.com/users/";
+  // resourceUrl: string = "http://localhost:8080/users/";
+  
   events:Event[];
-  resourceUrl: string = "http://localhost:8080/events/";
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
